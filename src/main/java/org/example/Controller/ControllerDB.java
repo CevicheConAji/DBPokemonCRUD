@@ -41,11 +41,26 @@ public class ControllerDB {
 
         try{
             while (rs.next()){
+                String idPoke = rs.getString("IDpoke");
                 String pokeType = rs.getString("pokename");
-                System.out.printf("%-10s\n",pokeType);
+                String typename = rs.getString("typename");
+                String movename = rs.getString("movename");
+                System.out.printf("%-10s %-10s %-10s %-10s\n", idPoke, pokeType, typename, movename);
             }
         }catch (SQLException e){
             System.out.println("Error: "+e.getMessage());
+        }
+    }
+
+    public void insert(String query) {
+        int count;
+        Statement statement;
+        try {
+            statement = connection.createStatement();
+            count = statement.executeUpdate(query);
+            System.out.println("Updated " + count + " rows");
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
